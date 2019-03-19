@@ -6,14 +6,17 @@ import java.util.Map;
 public class Solution {
     public static int lengthOfLongestSubstring(String s) {
         char [] arry = s.toCharArray();
-        Map map = new HashMap();
+        Map<Character,Integer> map = new HashMap<Character, Integer>();
         int cnt = 0;
-        for (int i = 0; i < arry.length; i ++){
+        for (int i = 0,j = 0; i < arry.length; i ++){
             if (map.containsKey(arry[i])){
-                if (cnt < map.size()){
-                    cnt = map.size();
+                j = (j > map.get(arry[i]) + 1) ? j : map.get(arry[i]) + 1;
+                if (i - j > cnt){
+                    cnt = i - j;
                 }
-                map.clear();
+            }
+            if (i - j + 1> cnt){
+                cnt = i - j + 1;
             }
             map.put(arry[i],i);
         }
